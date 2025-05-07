@@ -13,18 +13,18 @@ const Hero = () => {
     {
       icon: <FiInstagram className="h-5 w-5" />,
       username: "metwood.crafts",
-      url: "https://instagram.com",
+      url: "https://instagram.com/metwood.crafts",
     },
     {
       icon: <FiFacebook className="h-5 w-5" />,
       username: "MetwoodFurniture",
       url: "https://facebook.com",
     },
-    {
-      icon: <FiTwitter className="h-5 w-5" />,
-      username: "MetwoodOfficial",
-      url: "https://twitter.com",
-    },
+    // {
+    //   icon: <FiTwitter className="h-5 w-5" />,
+    //   username: "MetwoodOfficial",
+    //   url: "https://twitter.com",
+    // },
   ];
 
   // Typing effect

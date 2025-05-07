@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FiHome, FiShoppingBag, FiInfo, FiMenu, FiX } from "react-icons/fi";
+import { RiAdminFill } from "react-icons/ri";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,11 @@ const Navbar = () => {
     { path: "/", name: "Home", icon: <FiHome className="mr-2" /> },
     { path: "/store", name: "Store", icon: <FiShoppingBag className="mr-2" /> },
     { path: "/about", name: "About", icon: <FiInfo className="mr-2" /> },
+    {
+      path: "/login",
+      name: <RiAdminFill />,
+      icon: <FiInfo className="mr-2" />,
+    },
   ];
 
   const isActive = (path) => {
