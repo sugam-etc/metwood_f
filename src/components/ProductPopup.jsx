@@ -5,8 +5,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const SERVER_URL = "http://localhost:5000";
-
 const ProductPopup = ({ isOpen, onClose, product, onBuyNow }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -26,10 +24,8 @@ const ProductPopup = ({ isOpen, onClose, product, onBuyNow }) => {
     }
   };
 
-  const getImageUrl = (filename) => {
-    return filename
-      ? `${SERVER_URL}/uploads/${filename}`
-      : "/images/placeholder.jpg";
+  const getImageUrl = (url) => {
+    return url || "/images/placeholder.jpg";
   };
 
   return (

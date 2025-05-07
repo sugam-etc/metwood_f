@@ -3,7 +3,7 @@ import axios from "axios";
 import ProductPopup from "../components/ProductPopup";
 import PurchasePopup from "../components/CartPopup";
 
-const SERVER_URL = "https://metwood-b.onrender.com";
+const SERVER_URL = "http://localhost:5000";
 
 const Store = () => {
   const [products, setProducts] = useState([]);
@@ -53,8 +53,8 @@ const Store = () => {
   };
 
   const openPurchasePopup = () => {
-    setIsPopupOpen(false); // Hide product popup
-    setIsPurchaseOpen(true); // Show purchase popup
+    setIsPopupOpen(false);
+    setIsPurchaseOpen(true);
   };
 
   const closePurchasePopup = () => {
@@ -62,10 +62,8 @@ const Store = () => {
     setSelectedProduct(null);
   };
 
-  const getImageUrl = (filename) => {
-    return filename
-      ? `${SERVER_URL}/uploads/${filename}`
-      : "/images/placeholder.jpg";
+  const getImageUrl = (url) => {
+    return url || "/images/placeholder.jpg";
   };
 
   return (
@@ -152,7 +150,7 @@ const Store = () => {
         isOpen={isPopupOpen}
         onClose={closePopup}
         product={selectedProduct}
-        onBuyNow={openPurchasePopup} // 🔥 Connect Buy Now
+        onBuyNow={openPurchasePopup}
       />
 
       {/* Purchase Popup */}

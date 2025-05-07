@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const SERVER_URL = "https://metwood-b.onrender.com";
+// Backend API base URL (Render)
+const SERVER_URL = "http://localhost:5000";
+
+// Cloudinary config
+const CLOUD_NAME = "djmu2d1nz"; // 👈 Your Cloudinary cloud name (from earlier)
+const UPLOAD_PRESET = "unsigned_preset"; // 👈 Your Cloudinary upload preset
 
 const AdminPanel = () => {
   const [items, setItems] = useState([]);
@@ -14,6 +19,7 @@ const AdminPanel = () => {
     previews: [],
   });
 
+  // Fetch items on load
   useEffect(() => {
     fetchItems();
   }, []);
@@ -42,18 +48,50 @@ const AdminPanel = () => {
     setNewItem((prev) => ({ ...prev, images: files, previews }));
   };
 
+  // Upload images to Cloudinary
+  const uploadImagesToCloudinary = async (files) => {
+    const uploadedUrls = [];
+
+    for (let file of files) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", UPLOAD_PRESET);
+
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+        formData
+      );
+      uploadedUrls.push(res.data.secure_url);
+    }
+
+    return uploadedUrls;
+  };
+
   const handleAddItem = async (e) => {
     e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("name", newItem.name);
-      formData.append("description", newItem.description);
-      formData.append("price", newItem.price);
-      formData.append("category", newItem.category);
-      newItem.images.forEach((file) => formData.append("images", file));
 
-      const res = await axios.post(`${SERVER_URL}/api/items`, formData);
+    if (newItem.images.length === 0) {
+      alert("Please upload at least one image.");
+      return;
+    }
+
+    try {
+      // Upload images first
+      const uploadedImageUrls = await uploadImagesToCloudinary(newItem.images);
+
+      // Send item data + image URLs to backend
+      const itemData = {
+        name: newItem.name,
+        description: newItem.description,
+        price: newItem.price,
+        category: newItem.category,
+        images: uploadedImageUrls, // Cloudinary URLs here
+      };
+
+      const res = await axios.post(`${SERVER_URL}/api/items`, itemData);
       setItems((prev) => [...prev, res.data]);
+
+      // Reset form
       setNewItem({
         name: "",
         description: "",
@@ -62,13 +100,13 @@ const AdminPanel = () => {
         images: [],
         previews: [],
       });
+
       alert("Item added successfully!");
     } catch (err) {
       console.error("Add error:", err);
       alert("Failed to add item.");
     }
   };
-
   const handleDeleteItem = async (id) => {
     try {
       await axios.delete(`${SERVER_URL}/api/items/${id}`);
@@ -82,6 +120,7 @@ const AdminPanel = () => {
     <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-4xl font-bold mb-10 text-center">Admin Panel</h1>
 
+      {/* Add Item Form */}
       <section className="bg-white p-6 rounded-2xl shadow-lg mb-16">
         <h2 className="text-2xl font-semibold mb-6">Add New Item</h2>
         <form
@@ -153,6 +192,7 @@ const AdminPanel = () => {
         </form>
       </section>
 
+      {/* Manage Items */}
       <section className="mb-16">
         <h2 className="text-2xl font-semibold mb-6">Manage Items</h2>
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -166,7 +206,7 @@ const AdminPanel = () => {
                   {item.images.map((img, idx) => (
                     <img
                       key={idx}
-                      src={`${SERVER_URL}/uploads/${img}`}
+                      src={img} // Cloudinary URL directly
                       alt={`Item ${item.name} ${idx}`}
                       className="h-20 w-20 object-cover rounded-lg"
                     />
@@ -178,7 +218,7 @@ const AdminPanel = () => {
                 <h3 className="text-xl font-bold">{item.name}</h3>
                 <p className="text-gray-600 text-sm">{item.description}</p>
                 <p className="text-lg text-amber-700 font-semibold">
-                  Rs{item.price}
+                  Rs {item.price}
                 </p>
                 <p className="text-sm text-gray-500">{item.category}</p>
               </div>
