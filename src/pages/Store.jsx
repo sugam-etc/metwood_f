@@ -3,7 +3,7 @@ import axios from "axios";
 import ProductPopup from "../components/ProductPopup";
 import PurchasePopup from "../components/CartPopup";
 
-const SERVER_URL = "http://localhost:5000";
+const SERVER_URL = "https://metwood-b.onrender.com";
 
 const Store = () => {
   const [products, setProducts] = useState([]);
