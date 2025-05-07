@@ -7,7 +7,7 @@ import AdminPanel from "./pages/Admin";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
-
+export const SERVER_URL = "https://metwood-b.onrender.com";
 function App() {
   return (
     <AuthProvider>
