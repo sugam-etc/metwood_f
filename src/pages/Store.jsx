@@ -3,8 +3,7 @@ import axios from "axios";
 import ProductPopup from "../components/ProductPopup";
 import PurchasePopup from "../components/CartPopup";
 
-const SERVER_URL = "http://localhost:5000";
-
+import { SERVER_URL } from "../App";
 const Store = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");

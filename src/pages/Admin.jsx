@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { SERVER_URL } from "../App";
 // Backend API base URL (Render)
-const SERVER_URL = "http://localhost:5000";
 
 // Cloudinary config
 const CLOUD_NAME = "djmu2d1nz"; // 👈 Your Cloudinary cloud name (from earlier)
