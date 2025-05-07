@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import bg from "../assets/Images/bg.jpg";
 import logo from "../assets/logo.png";
 import { FiInstagram, FiFacebook, FiTwitter } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const [hoveredIcon, setHoveredIcon] = useState(null);
   const [typedText, setTypedText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const fullText = "Handcrafted furniture with timeless elegance";
-
+  const navigate = useNavigate();
   const socialLinks = [
     {
       icon: <FiInstagram className="h-5 w-5" />,
@@ -101,7 +102,12 @@ const Hero = () => {
           {typedText}
           <span className="ml-1 animate-pulse">|</span> {/* Cursor effect */}
         </p>
-        <button className="bg-amber-700 hover:bg-amber-800 text-white font-medium py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 animate-fadeIn delay-200">
+        <button
+          onClick={() => {
+            navigate("/store");
+          }}
+          className="bg-amber-700 hover:bg-amber-800 text-white font-medium py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 animate-fadeIn delay-200"
+        >
           Explore Collection
         </button>
       </div>
