@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
@@ -18,7 +17,6 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/store" element={<Store />} />
-          {/* <Route path="/admin" element={<AdminPanel />} /> */}
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/admin"
