@@ -5,11 +5,11 @@ import { EffectCoverflow, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 
-import img2 from "../assets/Images/img2.JPG";
-import img1 from "../assets/Images/img1.JPG";
-import img3 from "../assets/Images/img3.JPG";
-import img4 from "../assets/Images/img4.JPG";
-import img5 from "../assets/Images/img5.JPG";
+import img2 from "../assets/Images/img2.jpg";
+import img1 from "../assets/Images/img1.jpg";
+import img3 from "../assets/Images/img3.jpg";
+import img4 from "../assets/Images/img4.jpg";
+import img5 from "../assets/Images/img5.jpg";
 import img6 from "../assets/Images/img6.jpg";
 import img7 from "../assets/Images/img7.jpg";
 import img8 from "../assets/Images/img8.jpg";
